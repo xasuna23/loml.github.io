@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ysa</title>
+    <!--font link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+    body {
+        text-align: center  ;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-color: rgba(30, 31, 29, 0.712);
+        background-position: center;
+        background-size: cover;
+    }
+    
+    section{
+        border: 10px solid black;
+        height: 98vh;
+    }
+
+    .container{
+        font-family: 'Poppins', sans-serif;
+        align-items: center;
+    }
+    .btn{
+        font-size: 2rem;
+    }
+
+    p{
+        color: white;
+    }
+    #question{
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #yesBtn{
+        white-space: nowrap;
+        margin-right: 10px;
+        background-color: #4CAF50;
+    }
+    #no-button {
+        white-space: nowrap;
+        position: absolute;
+        background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p id="question">Can you give me a chance again please?</p>
+            <button class="btn" id="yesBtn">Okay</button>
+            <button class="btn" id="no-button">No</button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>    
+            <p>Disclaimer: </p>
+            <p>This project is intended to be as a joke I had nothing else to do. But if ever you do take this seriously, </p>
+            <p>I just wanted to let you know na I'll do better this time. </p>
+        </div>
+    </section>
+    
+</body>
+<script>
+    const evilButton = document.getElementById('no-button')
+    const okayBtn = document.getElementById('yesBtn')
+    const ques = document.getElementById('question')
+    const OFFSET = 100
+
+    evilButton.addEventListener('click', () => {
+    alert('Ill still wait for you babi.')
+    window.close()
+    })
+
+    document.addEventListener('mousemove', (e) => {
+    const x = e.pageX
+    const y = e.pageY
+    const buttonBox = evilButton.getBoundingClientRect()
+    const horizontalDistanceFrom = distanceFromCenter(buttonBox.x, x, buttonBox.width)
+    const verticalDistanceFrom = distanceFromCenter(buttonBox.y, y, buttonBox.height)
+    const horizontalOffset = buttonBox.width / 2 + OFFSET
+    const verticalOffset = buttonBox.height / 2 + OFFSET
+
+    if (Math.abs(horizontalDistanceFrom) <= horizontalOffset && Math.abs(verticalDistanceFrom) <= verticalOffset) {
+    setButtonPosition(
+      buttonBox.x + horizontalOffset / horizontalDistanceFrom * 10,
+      buttonBox.y + verticalOffset / verticalDistanceFrom * 10
+        )
+    }
+    })
+
+    function setButtonPosition(left, top) {
+    const windowBox = document.body.getBoundingClientRect()
+    const buttonBox = evilButton.getBoundingClientRect()
+
+    if(distanceFromCenter(left, windowBox.left, buttonBox.width) < 0) {
+    left = windowBox.right - buttonBox.width - OFFSET
+    }
+    if(distanceFromCenter(left, windowBox.right, buttonBox.width) > 0) {
+    left = windowBox.left + OFFSET
+    }
+    if(distanceFromCenter(top, windowBox.top, buttonBox.height) < 0) {
+    top = windowBox.bottom - buttonBox.height - OFFSET
+    }
+    if(distanceFromCenter(top, windowBox.bottom, buttonBox.height) > 0) {
+    top = windowBox.top + OFFSET
+    }
+
+    evilButton.style.left = `${left}px`
+    evilButton.style.top = `${top}px`
+    }
+
+    function distanceFromCenter(boxPosition, mousePosition, boxSize) {
+    return boxPosition - mousePosition + boxSize / 2
+    }
+
+    okayBtn.addEventListener("click", ()=>{
+        ques.innerHTML = "gagi balik ka na IMY :( HAHAHAHA"
+    })
+</script>
+</html>
